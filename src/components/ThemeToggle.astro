@@ -42,7 +42,6 @@ const THEMES = ["Light", "Dark", "System"]
     animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
 
-  /* Define the animation directly in CSS without @apply */
   @keyframes scale-up-center {
     from {
       transform: scale(0.8);
@@ -56,18 +55,20 @@ const THEMES = ["Light", "Dark", "System"]
 </style>
 
 <script is:inline>
-  let remove = null
   const matchMedia = window.matchMedia("(prefers-color-scheme: dark)")
   const themesMenu = document.getElementById("themes-menu")
+  let remove = null
 
   const getThemePreference = () => {
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem("theme") ?? "system"
+    // Intentamos obtener el tema guardado desde localStorage
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      console.log('Theme from localStorage:', storedTheme);
+      return storedTheme;
     }
 
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light"
+    // Si no hay tema guardado, detectamos la preferencia del sistema
+    return matchMedia.matches ? "dark" : "light";
   }
 
   const updateIcon = (themePreference) => {
@@ -77,42 +78,62 @@ const THEMES = ["Light", "Dark", "System"]
   }
 
   const updateTheme = () => {
+    console.log('Updating theme...');
+
+    // Limpiar cualquier evento anterior
     if (remove != null) {
-      remove()
+      remove();
     }
-    matchMedia.addEventListener("change", updateTheme)
+
+    // Añadir el evento para actualizar el tema si cambia la preferencia del sistema
+    matchMedia.addEventListener("change", updateTheme);
     remove = () => {
-      matchMedia.removeEventListener("change", updateTheme)
+      matchMedia.removeEventListener("change", updateTheme);
     }
 
-    const themePreference = getThemePreference()
-    const isDark =
-      themePreference === "dark" ||
-      (themePreference === "system" && matchMedia.matches)
+    const themePreference = getThemePreference();
+    console.log('Current theme preference:', themePreference);
+    
+    const isDark = themePreference === "dark" || (themePreference === "system" && matchMedia.matches);
 
-    updateIcon(themePreference)
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-  }
+    // Actualizamos los iconos para que coincidan con el tema
+    updateIcon(themePreference);
 
-  updateTheme()
+    // Aplicamos la clase 'dark' al documento si es el tema oscuro
+    document.documentElement.classList[isDark ? "add" : "remove"]("dark");
+    console.log('Dark class added:', document.documentElement.classList.contains('dark'));
 
-  document.addEventListener("click", () => themesMenu.classList.remove("open"))
+    // Guardamos la preferencia del tema en localStorage
+    localStorage.setItem("theme", themePreference);
+  };
 
+  // Actualiza el tema al cargar la página
+  updateTheme();
+
+  // Ocultar el menú de temas al hacer clic fuera de él
+  document.addEventListener("click", () => themesMenu.classList.remove("open"));
+
+  // Mostrar el menú de selección de temas cuando se hace clic en el botón
   document.getElementById("theme-toggle-btn").addEventListener("click", (e) => {
-    e.stopPropagation()
-    const isClosed = !themesMenu.classList.contains("open")
-    themesMenu.classList[isClosed ? "add" : "remove"]("open")
-  })
+    console.log('Theme toggle button clicked');
+    e.stopPropagation();
+    const isClosed = !themesMenu.classList.contains("open");
+    themesMenu.classList[isClosed ? "add" : "remove"]("open");
+  });
 
+  // Manejar la selección de un tema del menú
   document.querySelectorAll(".themes-menu-option").forEach((element) => {
     element.addEventListener("click", (e) => {
-      localStorage.setItem("theme", e.target.innerText.toLowerCase().trim())
-      updateTheme()
-    })
-  })
+      const selectedTheme = e.target.innerText.toLowerCase().trim();
+      localStorage.setItem("theme", selectedTheme); // Guardar la preferencia seleccionada
+      updateTheme(); // Aplicar el nuevo tema
+      console.log('Theme set to:', selectedTheme); // Registro de depuración
+    });
+  });
 
+  // Asegurarse de que el tema se actualice después de cualquier cambio de Astro
   document.addEventListener('astro:after-swap', () => {
     updateTheme();
     window.scrollTo({ left: 0, top: 0, behavior: 'instant' });
-  })
+  });
 </script>
