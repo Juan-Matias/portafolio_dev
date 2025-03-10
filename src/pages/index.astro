@@ -1,59 +1,51 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Badge from "../components/Badge.astro";
-import SocialPill from "../icons/SocialPill.astro";
-import Linkedin from "../icons/Linkedin.astro";
-import GitHub from "../icons/GitHub.astro";
-import Mail from "../icons/Mail.astro";
-import Experience from "../components/Experience.astro";
-import SectionContainer from "../components/SectionContainer.astro";
-import Briefcase from "../icons/Briefcase.astro";
-import CodeIcon from "../icons/CodeIcon.astro";
-import Proyectos from "../components/Proyectos.astro";
-import ProfileCheck from "../icons/ProfileCheck.astro";
-import AboutMe from "../components/AboutMe.astro";
-import Hero from "../components/Hero.astro";
-import TitleSection from "../components/TitleSection.astro";
+import Layout from "../layouts/Layout.astro"
 
-const TITLE =
-	"Porfolio de Matias - Desarrollador y Programador web con 2 años de experiencia";
-const DESCRIPTION =
-	"Contrata a Matias Ponce para crear tu aplicacion web o móvil. desarrollador Web y Mobile";
+import AboutMe from "../components/AboutMe.astro"
+import Experience from "../components/Experience.astro"
+import SectionContainer from "../components/SectionContainer.astro"
+import Hero from "../components/Hero.astro"
+import TitleSection from "../components/TitleSection.astro"
+import Briefcase from "../icons/Briefcase.astro"
+import CodeIcon from "../icons/CodeIcon.astro"
+import Proyectos from "../components/Proyectos.astro"
+import ProfileCheck from "../icons/ProfileCheck.astro"
 ---
 
-<Layout title={TITLE} description={DESCRIPTION}>
-	<main class="px-4">
-		<SectionContainer class="py-16 md:py-36">
-			<Hero>
-				<slot />
-			</Hero>
-		</SectionContainer>
+<Layout
+  title="Porfolio de midudev - Desarrollador y Programador Web con 15 años de experiencia"
+  description="Contrata a midudev para crear tu aplicación web o móvil. Desarrollador Web y Creador de Contenido. Especializado en crear aplicaciones únicas."
+>
+  <main class="px-4">
+    <SectionContainer class="py-16 md:py-36">
+      <Hero>
+      </slot>
+    </Hero>
+    </SectionContainer>
+    <div class="space-y-24">
+    <SectionContainer id="experiencia">
+      <TitleSection>
+        <Briefcase class="size-8" />
+        Experiencia laboral
+      </TitleSection>
+      <Experience />
+    </SectionContainer>
 
-		<div class="space-y-24">
-			<SectionContainer id="experiencia">
-				<TitleSection>
-					<Briefcase class="size-7" />
-					Experiencia Laboral
-				</TitleSection>
-				<Experience />
-			</SectionContainer>
+    <SectionContainer id="proyectos">
+      <TitleSection>
+        <CodeIcon class="size-7" />
+        Proyectos
+      </TitleSection>
+      <Proyectos />
+    </SectionContainer>
 
-			<SectionContainer id="proyecto">
-				<TitleSection>
-					<CodeIcon class="size-7" />
-					Proyectos
-				</TitleSection>
-				<Proyectos />
-			</SectionContainer>
-
-			<SectionContainer id="sobre-mí">
-				<TitleSection>
-					<ProfileCheck class="size-8" />
-					Sobre Mí
-				</TitleSection>
-				<AboutMe />
-			</SectionContainer>
-		</div>
-	</main>
+    <SectionContainer id="sobre-mi">
+      <TitleSection>
+        <ProfileCheck class="size-8" />
+        Sobre mí
+      </TitleSection>
+      <AboutMe />
+    </SectionContainer>
+  </div>
+  </main>
 </Layout>
-
