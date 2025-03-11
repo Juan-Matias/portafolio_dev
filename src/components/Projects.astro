@@ -2,8 +2,11 @@
 import GitHub from "./icons/GitHub.astro"
 import NextJS from "./icons/NextJS.astro"
 import Tailwind from "./icons/Tailwind.astro"
+
 import Link from "./icons/Link.astro"
 import LinkButton from "./LinkButton.astro"
+import React from "./icons/React.astro"
+import Javascript from "./icons/Javascript.astro"
 
 const TAGS = {
   NEXT: {
@@ -16,31 +19,50 @@ const TAGS = {
     class: "bg-[#003159] text-white",
     icon: Tailwind,
   },
+  REACT: {
+    name: "React Native",
+    class: "bg-black text-white",
+    icon: React,
+  },
+  JAVASCRIPT: {
+    name: "JavaScript",
+    class: "bg-black text-white",
+    icon: Javascript,
+  },
 }
 const PROJECTS = [
   {
-    title: "SVGL - A beautiful library with SVG logos",
+
+    // # Project 1
+    // Description: Este es de Carrete Cervecero
+    title: "Carrete Cervecero - Aplicación móvil ",
     description:
       "Biblioteca de logos SVG de las marcas más populares. +10k visitas al mes. +2K svgs descargados. Creado desde cero con Next.js, React y Tailwind CSS.",
-    link: "https://svgl.vercel.app/",
-    github: "https://github.com/pheralb/svgl",
-    image: "/projects/svgl.webp",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
+    github:"https://github.com/Juan-Matias/App-carrete-cervecero-RN",
+    image: "/projects/Carrete_Cervecero.jpg",
+    tags: [TAGS.JAVASCRIPT, TAGS.TAILWIND, TAGS.REACT],
   },
+
+  // # Project 2
+  // Description: Este proyecto es de Delibery 
   {
     title: "AdventJS - Retos de programación con JavaScript y TypeScript",
     description:
       "Plataforma gratuita con retos de programación. Más de 1 millón de visitas en un mes. +50K retos completados. Creada desde cero con Next.js, React y Tailwind CSS.",
-    link: "https://adventjs.dev",
-    image: "/projects/adventjs.webp",
+    // Aqui se puede agregar el link de la pagina 
+    //link: "#",
+    github:"https://github.com/Juan-Matias/Food-Delivery-react_native",
+    image: "/projects/Delibery_Food.jpg",
     tags: [TAGS.NEXT, TAGS.TAILWIND],
   },
+  
 ]
 ---
 
 <div class="flex flex-col gap-y-16">
   {
-    PROJECTS.map(({ image, title, description, tags, link, github }) => (
+    //Agregar el parametro link si quieres agregar un enlace
+    PROJECTS.map(({ image, title, description, tags,  github }) => (
     <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
   <div class="w-full md:w-1/2">
     <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
@@ -72,15 +94,16 @@ const PROJECTS = [
             <LinkButton href={github}>
               <GitHub class="size-6" />
               Code
-              
             </LinkButton>
           )}
+          {/*
           {link && (
             <LinkButton href={link}>
               <Link class="size-4" />
               Preview
-            </LinkButton>
+            </LinkButton  >
           )}
+          */}
         </footer>
     </div>
   </div>
