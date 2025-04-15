@@ -1,18 +1,21 @@
 ---
 import ExperienceItem from "./ExperienceItem.astro"
+
 const EXPERIENCE = [
   {
     date: "ago. 2024 - dic. 2024",
     title: "Desarrollador Frontend",
     company: "CMC - 360",
-    description: "Desarrollé la landing page oficial de la empresa y creé mapas de calor para EdenRed, visualizando locales en 12 regiones de Chile. También diseñé diagramas UML para OTRISMAP y automatizé procesos ETL en Python para normalizar datos.",
+    description:
+      "Desarrollé la landing page oficial de la empresa y creé mapas de calor para EdenRed, visualizando locales en 12 regiones de Chile. También diseñé diagramas UML para OTRISMAP y automatizé procesos ETL en Python para normalizar datos.",
     link: "https://cmc360.cl",
   },
   {
     date: "mar. 2024 - jun. 2024",
     title: "Desarrollador Full-Stack",
     company: "Carrete Cervecero",
-    description: "Creé una app móvil para gestionar reservas de máquinas de cerveza, implementando autenticación, notificaciones y reservas en tiempo real. Utilicé React Native y Firebase, y diseñé la UI con Figma.",
+    description:
+      "Creé una app móvil para gestionar reservas de máquinas de cerveza, implementando autenticación, notificaciones y reservas en tiempo real. Utilicé React Native y Firebase, y diseñé la UI con Figma.",
     link: "https://github.com/Juan-Matias/App-carrete-cervecero-RN",
   },
 ]
@@ -20,7 +23,7 @@ const EXPERIENCE = [
 
 <ol class="relative mt-16">
   {EXPERIENCE.map((experience) => (
-    <li key={experience.title} class="mb-8">
+    <li class="mb-8">
       <ExperienceItem {...experience} />
     </li>
   ))}
